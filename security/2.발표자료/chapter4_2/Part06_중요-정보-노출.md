@@ -96,3 +96,4 @@ try {
 - <https://www.boannews.com/media/view.asp?idx=45396>
 - <https://cocomo.tistory.com/301?category=681263>
 - <http://gsinfo.kr/xe/SecureCoding_Board/1639>
+- <http://oliviertech.com/ko/java/generate-SHA256--SHA512-hash-from-a-String/>
