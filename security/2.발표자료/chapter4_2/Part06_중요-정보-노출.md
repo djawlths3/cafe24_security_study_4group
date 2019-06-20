@@ -77,12 +77,11 @@ String encrypted = "";
 try {
   // 암호화 알고리즘 선택
   MessageDigest md = MessageDigest.getInstance("SHA-512");
+  md.reset();
   // UTF-8 인코딩
   md.update(new String(passwordArr).getBytes("UTF-8"));
-  // 선택한 알고리즘으로 암호화
-  byte[] digested = md.digest();
-  // 암호화된 비밀번호를 base64로 인코딩
-  encrypted = new String(Base64Coder.encode(digested));
+  // 선택한 알고리즘으로 암호화하고, 암호화된 비밀번호를 base64로 인코딩
+  encrypted = String.format("%0128x", new BigInteger(1, md.digest()));
 } catch(Exception e) {
   ...
 }
@@ -97,3 +96,4 @@ try {
 - <https://www.boannews.com/media/view.asp?idx=45396>
 - <https://cocomo.tistory.com/301?category=681263>
 - <http://gsinfo.kr/xe/SecureCoding_Board/1639>
+- <http://oliviertech.com/ko/java/generate-SHA256--SHA512-hash-from-a-String/>
