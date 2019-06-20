@@ -24,3 +24,8 @@
 8. System.exit() 사용 
 
 9. 배포시 제거되지 않고 남아 있는 코멘트 또는 디버깅 코드 
+
+
+참조 : https://cocomo.tistory.com/304?category=681263
+
+https://blog.naver.com/PostView.nhn?blogId=gs_info&logNo=221178608263&parentCategoryNo=&categoryNo=16&viewDate=&isShowPopularPosts=false&from=postView
