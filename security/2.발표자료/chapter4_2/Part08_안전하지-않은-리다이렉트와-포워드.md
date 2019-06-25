@@ -8,7 +8,9 @@
 
 URL 정보를 세팅할 수 있는 부분을 살펴보는 방법으로 취약점은 쉽게 확인할 수 있지만, 내부적으로 일어나는 분기인 forward 페이지들은 검색하기 쉽지 않다. 이 취약점으로 인해 악성코드를 설치하거나 중요 정보를 노출시키도록 속여 접근통제를 우회할 수 있으므로 주의해야 한다.
 
-### 취약점 진단
+<br>
+
+## 취약점 진단
 - 리다이렉트에 외부 입력값을 URL로 사용하는가?
    - 오픈 리다이렉트
    - 로컬 프록시를 이용하여 외부 입력값을 조작하여 악성 사이트에 리다이렉트 되도록 할 수 있다.
@@ -17,7 +19,9 @@ URL 정보를 세팅할 수 있는 부분을 살펴보는 방법으로 취약점
 - 응답코드 302 체크
    - Paros의 기능 중 사이트 정보를 수집하는 툴 메뉴를 이용하여 페이지 분기가 발생하는 응답 코드 302번(300~307번 대)을 확인한다.
 
-### 검증되지 않은 리다이렉트
+<br>
+
+## 검증되지 않은 리다이렉트
 `response.sendRedirect("http://www.mysite.com");`
 
 `response.sendRedirect(request.getParameter("url"));`
@@ -26,7 +30,9 @@ URL 정보를 세팅할 수 있는 부분을 살펴보는 방법으로 취약점
 
 사용자가 넘겨준 매개변수로 각 언어별로 리다이렉트 처리 시 취약점이 발생하여 악의적 URL로 렌더링 될 수 있다는 취약점이다.
 
-### 검증되지 않은 포워드
+<br>
+
+## 검증되지 않은 포워드
 ```java
 public class ForwardServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,6 +48,8 @@ public class ForwardServlet extends HttpServlet {
   }
 }
 ```
+
+<br>
 
 ## 참고
 - KISA - 홈페이지 취약점 진단·제거 가이드.pdf
