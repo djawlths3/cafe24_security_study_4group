@@ -354,3 +354,5 @@ Tomcat 서버를 재시작한다.
 <https://xinet.kr/?p=1674>
 
 <https://opentutorials.org/course/228/4894>
+
+https://wayhome25.github.io/cs/2018/03/11/ssl-https/
