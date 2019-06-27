@@ -66,7 +66,7 @@ SSL 인증서는 클라이언트와 서버간의 통신을 제3자가 보증해�
 
 인증서의 역할은 클라이언트가 접속한 서버가 클라이언트가 의도한 서버가 맞는지를 보장하는 역할을 한다. 이 역할을 하는 민간기업들이 있는데 이런 기업들을 **CA(Certificate authority)** 혹은 Root Certificate 라고 부른다. **CA는 아무 기업이나 할 수 있는 것이 아니고 신뢰성이 엄격하게 공인된 기업들만이 참여할 수 있다.** 그 중에 대표적인 기업들은 아래와 같다. 수치는 현시점의 시장점유율이다. ([위키피디아 참조](https://en.wikipedia.org/wiki/Certificate_authority))
 
--  Symantec (VeriSign, Thawte, Geotrust) with 42.9% market share
+- Symantec (VeriSign, Thawte, Geotrust) with 42.9% market share
 - Comodo with 26%
 - GoDaddy with 14%
 - GlobalSign with 7.7%
@@ -103,6 +103,29 @@ SSL 인증서에는 다음과 같은 정보가 포함되어 있다.
 ### CA를 브라우저는 알고 있다
 
 **인증서를 이해하는데 꼭 알고 있어야 하는 것이 CA의 리스트다.** **브라우저는 내부적으로 CA의 리스트를 미리 파악하고 있다.** 이 말은 브라우저의 소스코드 안에 CA의 리스트가 들어있다는 것이다. **브라우저가 미리 파악하고 있는 CA의 리스트에 포함되어야만 공인된 CA가 될 수 있는 것이다.** CA의 리스트와 함께 각 [CA의 공개키](https://opentutorials.org/course/228/4894#public)를 브라우저는 이미 알고 있다.
+
+
+
+### SSL 통신과정
+
+- 컴퓨터와 컴퓨터가 네트워크를 통해서 통신을 할때 `핸드쉐이크 -> 세션 -> 세션종료` 의 과정을 거친다.
+
+- 암호화된 HTTP 메시지를 교환하기 전에 클라이언트와 서버는 `SSL 핸드쉐이크를` 진행한다.
+
+- 핸드쉐이크의 목적은 아래와 같다.
+
+  - 프로토콜 버전번호 교환
+  - 양쪽이 알고 있는 pre master secret 키 생성 및 교환
+  - 양쪽의 신원 인증
+  - 채널을 암호화 하기 위한 임시 세션 키 생성
+
+- SSL 통신과정을 간단하게 도식화 하면 아래와 같다.
+
+  
+
+  ![views](https://i.imgur.com/YIfy1wK.png)
+
+
 
 
 
@@ -205,25 +228,6 @@ Verifying - Enter pass phrase for cafe24.com.key: 'key비밀번호'
 > **(\* 윈도우+아파치의 경우 -config "openssl.cnf 절대 경로" 입력 하시기 바랍니다.)]**
 >
 > 
-
-### SSL 통신과정
-
-- 컴퓨터와 컴퓨터가 네트워크를 통해서 통신을 할때 `핸드쉐이크 -> 세션 -> 세션종료` 의 과정을 거친다.
-
-- 암호화된 HTTP 메시지를 교환하기 전에 클라이언트와 서버는 `SSL 핸드쉐이크를` 진행한다.
-
-- 핸드쉐이크의 목적은 아래와 같다.
-
-  - 프로토콜 버전번호 교환
-  - 양쪽이 알고 있는 pre master secret 키 생성 및 교환
-  - 양쪽의 신원 인증
-  - 채널을 암호화 하기 위한 임시 세션 키 생성
-
-- SSL 통신과정을 간단하게 도식화 하면 아래와 같다.
-
-  
-
-  ![views](https://i.imgur.com/YIfy1wK.png)
 
 #### CSR 파일 생성
 
@@ -354,5 +358,3 @@ Tomcat 서버를 재시작한다.
 <https://xinet.kr/?p=1674>
 
 <https://opentutorials.org/course/228/4894>
-
-https://wayhome25.github.io/cs/2018/03/11/ssl-https/
