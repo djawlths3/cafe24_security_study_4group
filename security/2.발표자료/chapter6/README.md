@@ -136,7 +136,9 @@ SSL 인증서에는 다음과 같은 정보가 포함되어 있다.
 
 위처럼 입력하게 되면 아래와 같은 구문이 나타난다.
 
-![1560946588683](C:\Users\asdf\AppData\Roaming\Typora\typora-user-images\1560946588683.png)
+
+
+![1.png](https://github.com/djawlths3/cafe24_security_study_4group/blob/master/security/2.%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C/chapter6/1.png?raw=true)
 
 
 
@@ -236,7 +238,9 @@ An optional company name []:
 [root@localhost ssl]# cat cafe24.csr
 ```
 
-![1561031953841](C:\Users\asdf\AppData\Roaming\Typora\typora-user-images\1561031953841.png)
+
+
+![2.png](https://github.com/djawlths3/cafe24_security_study_4group/blob/master/security/2.%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C/chapter6/2.png?raw=true)
 
 > 이문서의 첫 줄 -----BEGIN … 부터 마지막 줄 -----END … 까지 복사하여 지정된 SSL 접수페이지에 복사하여 붙여 넣은 뒤 입력정보와 함께 전송하면 접수가 완료됩니다.
 > 접수한 CSR 파일이 정상적으로 생성됐다면 별다른 문제없이 인증서를 발급 받을 수 있습니다.
