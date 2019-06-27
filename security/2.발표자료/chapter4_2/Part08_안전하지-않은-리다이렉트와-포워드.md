@@ -51,6 +51,25 @@ public class ForwardServlet extends HttpServlet {
 
 <br>
 
+## 실습
+![실습 사이트](assets/8/0.PNG)
+
+사이트는 셀렉터에서 이동하고 싶은 URL을 선택하고 이동을 누르면 팝업으로 이동하고 싶은 페이제가 뜬다.
+
+![데이터 전송값 확인](assets/8/1.PNG)
+
+프록시 툴을 이용하여 전송할 때 값을 확인한다. 네이버를 선택하고 이동을 눌렀을 때 `data` 파라미터에 네이버의 URL이 들어가는 것을 확인할 수 있다.
+
+![데이터 전송값 조작](assets/8/2.PNG)
+
+이 데이터를 조작해보자. 기존에 적혀 있는 네이버의 URL 대신 `openeg.co.kr`를 data 파라미터에 입력한다.
+
+![팝업으로 다른 페이지가 뜸](assets/8/3.PNG)
+
+팝업창의 주소 부분을 잘 보면 조작한 값인 `openeg.co.kr`로 이동했음을 확인할 수 있다.
+
+<br>
+
 ## 참고
 - KISA - 홈페이지 취약점 진단·제거 가이드.pdf
 - <https://skynarciss.tistory.com/59>

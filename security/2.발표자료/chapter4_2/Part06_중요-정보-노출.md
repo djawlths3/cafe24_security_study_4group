@@ -120,6 +120,118 @@ try {
 
 <br>
 
+## 실습
+### 시큐어 코딩 페이지
+`<input>`태그의 `type` 속성을 `password`로 지정하더라도, 여기에 정보를 적자마자 바로 암호화되는 것이 아니다. 잘 사용하는 방법은 아니지만 서버로부터 정보를 불러와서 `type=password`의 `input`태그 안에 value로 지정해두었을 때, 간단하게 `소스보기`만으로도 내용을 확인할 수 있다.
+
+![value가 지정된 password input form](assets/6/1.PNG)
+
+![소스보기로 정보 확인](assets/6/2.PNG)
+
+### 강의 실습 페이지
+프록시 툴을 사용하여 POST 방식으로 보내는 정보도 확인할 수 있다.
+
+이렇게 중요한 정보가 평문으로 서버에 요청되는 것을 방지하기 위한 대책이 HTTPS이다.
+
+![POST 요청에서 패스워드 전달 확인](assets/6/3.PNG)
+
+### 해시 함수 사용
+중요한 정보는 서버로 도달할 때에도 안전하게 전송되어야 하지만, 서버 단에 저장될 때에도 원문 그대로 저장되는 건 좋지 않다. 이를 위한 방법 중 하나가 해시 함수를 사용하는 것인데, 솔트 없이 해시 암호문을 생성하면 보안에 취약하다. 이를 보여주기 위한 간단한 실습이다.
+
+```java
+import java.io.UnsupportedEncodingException;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
+
+public class HashFunctionSalt {
+	public static void main(String[] args) {
+		String password = "5048";
+		byte[] salt = "salt".getBytes();
+
+		System.out.println("< 솔트 없이 암호화 >");
+		bruteForce(getEncryptString(getHashWithoutSalt(password)));
+
+		System.out.println("< 솔트 넣어서 암호화 >");
+		bruteForce(getEncryptString(getHashWithSalt(password, salt)));
+
+	}
+
+	// 해시 암호문 문자열로 뽑아내기
+	public static String getEncryptString(byte[] encrypt) {
+		StringBuilder sb = new StringBuilder("");
+		for(int i = 0; i < encrypt.length; i++) {
+			String hexString = Integer.toHexString(encrypt[i] & 0xff);
+			while(hexString.length() < 2) {
+				hexString = "0" + hexString;
+			}
+			sb.append(hexString);
+		}
+		return sb.toString();
+	}
+
+	// 솔트 없이 암호화
+	public static byte[] getHashWithoutSalt(String password) {
+		MessageDigest digest;
+		byte[] encrypt = null;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+			digest.reset();
+			encrypt = digest.digest(password.getBytes("UTF-8"));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return encrypt;
+	}
+
+	// 솔트 넣어서 암호화
+	public static byte[] getHashWithSalt(String password, byte[] salt) {
+		MessageDigest digest;
+		byte[] encrypt = null;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+			digest.reset();
+			digest.update(salt);
+			encrypt = digest.digest(password.getBytes("UTF-8"));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return encrypt;
+	}
+
+	// 무작위 공격
+	public static void bruteForce(String encryptPassword) {
+		System.out.println("=== 무작위 공격 ===");
+		int i = 0;
+		for(i = 0; i < 10000; i++) {
+			String encryptElement = getEncryptString(getHashWithoutSalt(String.valueOf(i)));
+			if(encryptPassword.equals(encryptElement)) {
+				System.out.printf("비밀번호 찾음: %d\n해시값: %s\n", i, encryptElement);
+				break;
+			}
+		}
+		if(i == 10000) {
+			System.out.println("비밀번호 찾지 못함");
+		}
+		System.out.println("===================\n");
+	}
+
+}
+```
+
+동작 결과는 다음과 같다.
+
+![해시함수](assets/6/4.PNG)
+
+<br>
+
 ## 참고
 - KISA - 홈페이지 취약점 진단·제거 가이드.pdf
 - 한국인터넷진흥원 - 개인정보의 암호화 조치 안내서.pdf
@@ -127,4 +239,5 @@ try {
 - <https://cocomo.tistory.com/301?category=681263>
 - <http://gsinfo.kr/xe/SecureCoding_Board/1639>
 - <http://oliviertech.com/ko/java/generate-SHA256--SHA512-hash-from-a-String/>
+- <https://okky.kr/article/496801>
 - 실무에 바로 적용하는 해킹방어를 위한 JAVA 시큐어코딩
