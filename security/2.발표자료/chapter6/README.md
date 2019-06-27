@@ -202,9 +202,28 @@ Verifying - Enter pass phrase for cafe24.com.key: 'key비밀번호'
 > 정보입력과정 마지막에 나오는 A challenge password 와 An optional company name 두 항목은 입력하지 마시고 Enter 만 누르고 넘어가야 합니다. 두 정보가 입력될 경우 잘못된 CSR 생성될 수 있습니다.
 >
 > ↘ 위 주의사항을 유의하여 아래와 같은 절차로 CSR 생성을 진행합니다.
-> **(\* 윈도우+아파치의 경우 -config "openssl.cnf 절대 경로" 입력 하시기 바랍니다.)**
+> **(\* 윈도우+아파치의 경우 -config "openssl.cnf 절대 경로" 입력 하시기 바랍니다.)]**
+>
+> 
 
+### SSL 통신과정
 
+- 컴퓨터와 컴퓨터가 네트워크를 통해서 통신을 할때 `핸드쉐이크 -> 세션 -> 세션종료` 의 과정을 거친다.
+
+- 암호화된 HTTP 메시지를 교환하기 전에 클라이언트와 서버는 `SSL 핸드쉐이크를` 진행한다.
+
+- 핸드쉐이크의 목적은 아래와 같다.
+
+  - 프로토콜 버전번호 교환
+  - 양쪽이 알고 있는 pre master secret 키 생성 및 교환
+  - 양쪽의 신원 인증
+  - 채널을 암호화 하기 위한 임시 세션 키 생성
+
+- SSL 통신과정을 간단하게 도식화 하면 아래와 같다.
+
+  
+
+  ![views](https://i.imgur.com/YIfy1wK.png)
 
 #### CSR 파일 생성
 
